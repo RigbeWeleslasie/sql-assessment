@@ -1,6 +1,6 @@
 create schema inventory;
-CREATE TABLE inventory.employees (
-    EmployeeID INT PRIMARY KEY,
+create table inventory.employees (
+    EmployeeID INT primary key,
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Gender VARCHAR(10),
@@ -8,10 +8,7 @@ CREATE TABLE inventory.employees (
     HireDate DATE,
     Salary DECIMAL(10, 2)
 );
-drop table inventory.employees;
-
-
-INSERT INTO inventory.employees (EmployeeID, FirstName, LastName, Gender, Department, HireDate, Salary) VALUES
+insert into inventory.employees (EmployeeID, FirstName, LastName, Gender, Department, HireDate, Salary) VALUES
 (1, 'John', 'Doe', 'Male', 'IT', '2018-05-01', 60000.00),
 (2, 'Jane', 'Smith', 'Female', 'HR', '2019-06-15', 50000.00),
 (3, 'Michael', 'Johnson', 'Male', 'Finance', '2017-03-10', 75000.00),
@@ -21,52 +18,89 @@ INSERT INTO inventory.employees (EmployeeID, FirstName, LastName, Gender, Depart
 (7, 'Chris', 'Taylor', 'Male', 'IT', '2022-02-25', 65000.00);
 
 
-SELECT * FROM inventory.employees;
+select * from inventory.employees;
 
-SELECT FirstName FROM inventory.employees;
+select FirstName from inventory.employees;
 
-SELECT DISTINCT Department from inventory.employees;
+select DISTINCT Department from inventory.employees;
 
-SELECT COUNT(*) AS totalEmployes FROM inventory.employees;
+select COUNT(*) AS totalEmployes from inventory.employees;
 
-SELECT SUM(Salary) AS totalSalary from inventory.employees;
+select SUM(Salary) AS totalSalary from inventory.employees;
 
-SELECT AVG(Salary) AS AverageSalary FROM inventory.employees;
+select AVG(Salary) AS AverageSalary 
+from inventory.employees;
 
-SELECT MAX(Salary) AS HighestSalary FROM inventory.employees;
+select MAX(Salary) AS HighestSalary 
+from inventory.employees;
 
-SELECT MIN(Salary) AS LowestSalary FROM inventory.employees;
+select MIN(Salary) AS LowestSalary 
+from m inventory.employees;
 
-SELECT COUNT(*) AS MaleEmployees 
-FROM inventory.employees 
-WHERE Gender = 'Male';
+select COUNT(*) AS MaleEmployees 
+from rom inventory.employees 
+where Gender = 'Male';
 
-SELECT COUNT(*) AS FemaleEmployees
-FROM inventory.employees
-WHERE Gender = 'Female';
+select COUNT(*) AS FemaleEmployees
+from inventory.employees
+where Gender = 'Female';
 
-SELECT COUNT(*) AS HiredIn2020 
-FROM inventory.employees 
-WHERE DATE_PART('year', HireDate) = 2020;
+select COUNT(*) AS HiredIn2020 
+from inventory.employees 
+where DATE_PART('year', HireDate) = 2020;
 
-SELECT AVG(Salary) AS AvgSalaryIT 
-FROM inventory.employees
-WHERE Department = 'IT';
+select AVG(Salary) AS AvgSalaryIT 
+from inventory.employees
+where Department = 'IT';
 
-SELECT Department, COUNT(*) AS NumEmployees 
-FROM inventory.employees
-GROUP BY Department;
+select Department, COUNT(*) AS NumEmployees 
+from inventory.employees
+group by Department;
 
 
-CREATE TABLE inventory.products (
-    ProductID INT PRIMARY KEY,
+select Department, SUM(Salary) AS TotalSalary 
+from inventory.employees 
+group by Department;
+
+
+select Department, MAX(Salary) AS MaxSalary 
+from inventory.employees 
+group by Department;
+
+select Department, MIN(Salary) AS minsalary
+from inventory.employees 
+group by Department;
+
+
+
+
+select Gender, COUNT(*) AS NumEmployees 
+from inventory.employees 
+group by Gender;
+
+select Gender, AVG(Salary) AS AvgSalary 
+from inventory.employees 
+group by Gender;
+
+
+select * 
+from inventory.employees 
+group by Salary DESC 
+limit 5;
+
+select COUNT(DISTINCT FirstName) AS UniqueFirstNames 
+from inventory.employees;
+
+
+create table inventory.products (
+    ProductID INT primary key,
     ProductName VARCHAR(50),
     Category VARCHAR(50),
     Price DECIMAL(10, 2),
     Stock INT
 );
 
-INSERT INTO inventory.products (ProductID, ProductName, Category, Price, Stock) VALUES
+insert into inventory.products (ProductID, ProductName, Category, Price, Stock) values
 (1, 'Laptop', 'Electronics', 1200.00, 30),
 (2, 'Desk', 'Furniture', 300.00, 50),
 (3, 'Chair', 'Furniture', 150.00, 200),
@@ -76,7 +110,33 @@ INSERT INTO inventory.products (ProductID, ProductName, Category, Price, Stock) 
 (7, 'Printer', 'Electronics', 200.00, 25);
 
 
-SELECT * FROM inventory.products;
+select * from inventory.products;
 
 
+create table inventory.sales (
+    SaleID INT primary key,
+    ProductID INT,
+    EmployeeID INT,
+    SaleDate DATE,
+    Quantity INT,
+    Total DECIMAL(10, 2),
+    foreign key (ProductID) references inventory.products(ProductID),
+    foreign key (EmployeeID) references inventory.employees(EmployeeID)
+);
+
+insert into inventory.sales (SaleID, ProductID, EmployeeID, SaleDate, Quantity, Total) values
+(1, 1, 1, '2021-01-15', 2, 2400.00),
+(2, 2, 2, '2021-03-22', 1, 300.00),
+(3, 3, 3, '2021-05-10', 4, 600.00),
+(4, 4, 4, '2021-07-18', 3, 2400.00),
+(5, 5, 5, '2021-09-25', 2, 500.00),
+(6, 6, 6, '2021-11-30', 1, 100.00),
+(7, 7, 1, '2022-02-15', 1, 200.00),
+(8, 1, 2, '2022-04-10', 1, 1200.00),
+(9, 2, 3, '2022-06-20', 2, 600.00),
+(10, 3, 4, '2022-08-05', 3, 450.00),
+(11, 4, 5, '2022-10-11', 1, 800.00),
+(12, 5, 6, '2022-12-29', 4, 1000.00);
+
+select * from inventory.sales;
 
