@@ -77,6 +77,7 @@ group by Department;
 select Gender, COUNT(*) AS NumEmployees 
 from inventory.employees 
 group by Gender;
+
 --18
 select Gender, AVG(Salary) AS AvgSalary 
 from inventory.employees 
@@ -85,15 +86,31 @@ group by Gender;
 --19
 select * 
 from inventory.employees 
-group by Salary DESC 
-LIMIT 5;
+group by Salary desc 
+limit 5;
 --20
-select COUNT(DISTINCT FirstName) AS UniqueFirstNames 
+select COUNT(DISTINCT FirstName) as  UniqueFirstNames 
 from inventory.employees;
 
 --21
+select employee.*, sale.SaleID, sale.ProductID, sale.SaleDate, sale.Quantity, sale.Total 
+from  inventory.employees employee 
+left join  inventory.sales sale on employee.EmployeeID = sale.EmployeeID;
 
 
+--22
+select * 
+from  inventory.employees 
+order by HireDate 
+limit 10
+
+--23
+select employee.* 
+from inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID 
+where sale.SaleID is null;
+
+--24
 
 
 
