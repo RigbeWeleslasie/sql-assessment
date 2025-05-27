@@ -24,62 +24,62 @@ select FirstName from inventory.employees;
 --3
 select DISTINCT Department from inventory.employees;
 --4
-select COUNT(*) AS totalEmployes from inventory.employees;
+select count(*)  as totalEmployes from inventory.employees;
 --5
-select SUM(Salary) AS totalSalary from inventory.employees;
+select sum(Salary) as totalSalary from inventory.employees;
 --6
-select AVG(Salary) AS AverageSalary 
+select avg(Salary) as averageSalary 
 from inventory.employees;
 --7
-select MAX(Salary) AS HighestSalary 
+select max(Salary) as highestSalary 
 from inventory.employees;
 --8
-select MIN(Salary) AS LowestSalary 
+select min(Salary) as lowestSalary 
 from inventory.employees;
 --9
-select COUNT(*) AS MaleEmployees 
+select count(*) as maleEmployees 
 from inventory.employees 
 where Gender = 'Male';
 --10
-select COUNT(*) AS FemaleEmployees
+select count(*) as femaleEmployees
 from inventory.employees
 where Gender = 'Female';
 --11
-select COUNT(*) AS HiredIn2020 
+select count(*) as hiredIn2020 
 from inventory.employees 
-where DATE_PART('year', HireDate) = 2020;
+where date_part('year', HireDate) = 2020;
 --12
-select AVG(Salary) AS averageSalaryIT
+select avg(Salary) as averageSalaryIT
 from inventory.employees
 where Department = 'IT';
 --13
-select Department, COUNT(*) AS NumEmployees 
+select Department, count(*) as NumEmployees 
 from inventory.employees
 group by Department;
 
 --14
-select Department, SUM(Salary) AS TotalSalary 
+select Department, sum(Salary) as TotalSalary 
 from inventory.employees 
 group by Department;
 
 --15
-select Department, MAX(Salary) AS MaxSalary 
+select Department, max(Salary) as MaxSalary 
 from inventory.employees 
 group by Department;
 --16
-select Department, MIN(Salary) AS minsalary
+select Department, min(Salary) as minsalary
 from inventory.employees 
 group by Department;
 
 
 
 --17
-select Gender, COUNT(*) AS NumEmployees 
+select Gender, count(*) as  NumerEmployees 
 from inventory.employees 
 group by Gender;
 
 --18
-select Gender, AVG(Salary) AS AvgSalary 
+select Gender, AVG(Salary) as  AverageSalary 
 from inventory.employees 
 group by Gender;
 
@@ -111,6 +111,60 @@ left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
 where sale.SaleID is null;
 
 --24
+select employee.EmployeeID, employee.FirstName, employee.LastName, COUNT(sale.SaleID) as  totalSales 
+from inventory.employees employee 
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID 
+group by employee.EmployeeID, employee.FirstName, employee.LastName;
+
+
+--25
+
+
+select employee.EmployeeID, employee.FirstName, employee.LastName, sum(sale.Total) as totalSales
+from inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
+group by employee.EmployeeID, employee.FirstName, employee.LastName
+order by totalSales desc
+limit 1;
+
+
+
+--26
+select employee.Department, avg(sale.Quantity) as averageQuantity
+from inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
+group by  employee.Department;
+
+
+--27
+select employee.EmployeeID, employee.FirstName, employee.LastName, sum(sale.Total) as totalSalesOf2021
+from inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
+where extract(year from sale.SaleDate) = 2021
+group by employee.EmployeeID, employee.FirstName, employee.LastName;
+
+
+--28
+select employee.EmployeeID, employee.FirstName, employee.LastName, sum(sale.Quantity) as totalQuantity
+from  inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
+group by employee.EmployeeID, employee.FirstName, employee.LastName
+order by TotalQuantity desc
+limit 3;
+
+--29
+select employee.Department, sum(sale.Quantity) as totalQuantity
+from inventory.employees employee
+left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
+group by employee.Department;
+
+
+--30
+select product.Category, sum(sale.Total) as totalRevenue
+from inventory.products product
+left join inventory.sales sale on product.ProductID = sale.ProductID
+group by product.Category;
+
 
 
 
