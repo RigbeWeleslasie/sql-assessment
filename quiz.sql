@@ -17,79 +17,84 @@ insert into inventory.employees (EmployeeID, FirstName, LastName, Gender, Depart
 (6, 'David', 'Wilson', 'Male', 'Sales', '2019-01-05', 55000.00),
 (7, 'Chris', 'Taylor', 'Male', 'IT', '2022-02-25', 65000.00);
 
-
+--1
 select * from inventory.employees;
-
+--2
 select FirstName from inventory.employees;
-
+--3
 select DISTINCT Department from inventory.employees;
-
+--4
 select COUNT(*) AS totalEmployes from inventory.employees;
-
+--5
 select SUM(Salary) AS totalSalary from inventory.employees;
-
+--6
 select AVG(Salary) AS AverageSalary 
 from inventory.employees;
-
+--7
 select MAX(Salary) AS HighestSalary 
 from inventory.employees;
-
+--8
 select MIN(Salary) AS LowestSalary 
-from m inventory.employees;
-
+from inventory.employees;
+--9
 select COUNT(*) AS MaleEmployees 
-from rom inventory.employees 
+from inventory.employees 
 where Gender = 'Male';
-
+--10
 select COUNT(*) AS FemaleEmployees
 from inventory.employees
 where Gender = 'Female';
-
+--11
 select COUNT(*) AS HiredIn2020 
 from inventory.employees 
 where DATE_PART('year', HireDate) = 2020;
-
-select AVG(Salary) AS AvgSalaryIT 
+--12
+select AVG(Salary) AS averageSalaryIT
 from inventory.employees
 where Department = 'IT';
-
+--13
 select Department, COUNT(*) AS NumEmployees 
 from inventory.employees
 group by Department;
 
-
+--14
 select Department, SUM(Salary) AS TotalSalary 
 from inventory.employees 
 group by Department;
 
-
+--15
 select Department, MAX(Salary) AS MaxSalary 
 from inventory.employees 
 group by Department;
-
+--16
 select Department, MIN(Salary) AS minsalary
 from inventory.employees 
 group by Department;
 
 
 
-
+--17
 select Gender, COUNT(*) AS NumEmployees 
 from inventory.employees 
 group by Gender;
-
+--18
 select Gender, AVG(Salary) AS AvgSalary 
 from inventory.employees 
 group by Gender;
 
-
+--19
 select * 
 from inventory.employees 
 group by Salary DESC 
-limit 5;
-
+LIMIT 5;
+--20
 select COUNT(DISTINCT FirstName) AS UniqueFirstNames 
 from inventory.employees;
+
+--21
+
+
+
 
 
 create table inventory.products (
@@ -104,7 +109,7 @@ insert into inventory.products (ProductID, ProductName, Category, Price, Stock) 
 (1, 'Laptop', 'Electronics', 1200.00, 30),
 (2, 'Desk', 'Furniture', 300.00, 50),
 (3, 'Chair', 'Furniture', 150.00, 200),
-(4, 'Smartphone', 'Electronics', 800.00, 75),
+(4, 'Smartphone', 'Electronics', 800.00,75),
 (5, 'Monitor', 'Electronics', 250.00, 40),
 (6, 'Bookshelf', 'Furniture', 100.00, 60),
 (7, 'Printer', 'Electronics', 200.00, 25);
@@ -139,4 +144,8 @@ insert into inventory.sales (SaleID, ProductID, EmployeeID, SaleDate, Quantity, 
 (12, 5, 6, '2022-12-29', 4, 1000.00);
 
 select * from inventory.sales;
+
+
+
+
 
