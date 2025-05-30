@@ -92,10 +92,7 @@ limit 5;
 select COUNT(DISTINCT FirstName) as  UniqueFirstNames 
 from inventory.employees;
 
---21
-select employee.*, sale.SaleID, sale.ProductID, sale.SaleDate, sale.Quantity, sale.Total 
-from  inventory.employees employee 
-left join  inventory.sales sale on employee.EmployeeID = sale.EmployeeID;
+
 
 
 --22
@@ -158,16 +155,6 @@ from inventory.employees employee
 left join inventory.sales sale on employee.EmployeeID = sale.EmployeeID
 group by employee.Department;
 
-
---30
-select product.Category, sum(sale.Total) as totalRevenue
-from inventory.products product
-left join inventory.sales sale on product.ProductID = sale.ProductID
-group by product.Category;
-
-
-
-
 create table inventory.products (
     ProductID INT primary key,
     ProductName VARCHAR(50),
@@ -187,6 +174,12 @@ insert into inventory.products (ProductID, ProductName, Category, Price, Stock) 
 
 
 select * from inventory.products;
+
+--30
+select product.Category, sum(sale.Total) as totalRevenue
+from inventory.products product
+left join inventory.sales sale on product.ProductID = sale.ProductID
+group by product.Category;
 
 
 create table inventory.sales (
@@ -216,7 +209,10 @@ insert into inventory.sales (SaleID, ProductID, EmployeeID, SaleDate, Quantity, 
 
 select * from inventory.sales;
 
-
+--21
+select employee.*, sale.SaleID, sale.ProductID, sale.SaleDate, sale.Quantity, sale.Total 
+from  inventory.employees employee 
+left join  inventory.sales sale on employee.EmployeeID = sale.EmployeeID;
 
 
 
