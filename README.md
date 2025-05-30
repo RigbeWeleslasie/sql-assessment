@@ -17,5 +17,4 @@ Records sales transactions, linking products and employees, with details on sale
 Sample data insertion:
 Includes realistic sample data for all tables to demonstrate functionality.
 
-Query examples:
 A comprehensive set of sql queries is provided to retrieve, aggregate, and analyze data from the employees, products, and sales tables. These queries cover frequent business needs like counting employees, calculating salary stats, listing departments, and more.
