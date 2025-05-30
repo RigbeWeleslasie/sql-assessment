@@ -1,5 +1,4 @@
 # SQL-assessment
-This project
 
 This project defines a simple inventory management system using sql for a business. It contains the following main components:
 
